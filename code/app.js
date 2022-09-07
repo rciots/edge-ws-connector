@@ -1,8 +1,9 @@
 const port = process.env.PORT || 8080;
-const cliport = process.env.CLI_PORT || 8081;
+const cliport = process.env.CLI_PORT || 8082;
+const wsmanager = process.env.WS_MANAGER || "192.168.1.131";
 const { Server } = require("socket.io");
 const socketcli = require("socket.io-client");
-const ioclient = new socketcli.connect("http://192.168.1.131:" + cliport, {
+const ioclient = new socketcli.connect("http://" + wsmanager + ":" + cliport, {
   reconnection: true,
   reconnectionDelay: 500
 });
@@ -20,6 +21,5 @@ io.on('connection', (socket) => {
   });
   socket.on("video", (data) => {
     ioclient.emit("video", data);
-    console.log("video data:" + data)
   });
 });

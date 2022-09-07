@@ -35,6 +35,11 @@ spec:
                 configMapKeyRef:
                   name: edge-ws-connector
                   key: CLI_PORT
+            - name: WS_MANAGER
+              valueFrom:
+                configMapKeyRef:
+                  name: edge-ws-connector
+                  key: WS_MANAGER
           ports:
             - containerPort: 8080
               protocol: TCP
