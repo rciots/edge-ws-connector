@@ -7,10 +7,12 @@ const ioclient = new socketcli.connect("http://" + wsmanager + ":" + cliport, {
   reconnection: true,
   reconnectionDelay: 500
 });
+var controller = "";
 const io = new Server(port, { /* options */ });
 io.on('connection', (socket) => {
   socket.on("component", (component) => {
     if (component == "hw01") {
+      controller = socket;
       console.log("connected hw01");
     } else if (component == "cam01") {
       console.log("connected cam01");
@@ -22,4 +24,7 @@ io.on('connection', (socket) => {
   socket.on("video", (data) => {
     ioclient.emit("video", data);
   });
+});
+ioclient.on("control", (control) => {
+  controller.emit("control", control);
 });
