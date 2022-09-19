@@ -10,6 +10,7 @@ const ioclient = new socketcli.connect("http://" + wsmanager + ":" + cliport, {
 var controller = "";
 const io = new Server(port, { /* options */ });
 io.on('connection', (socket) => {
+  console.log("component connected");
   socket.on("component", (component) => {
     if (component == "hw01") {
       controller = socket;
