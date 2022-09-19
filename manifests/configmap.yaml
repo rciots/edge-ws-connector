@@ -5,5 +5,5 @@ metadata:
   namespace: edge-ws-connector
 data:
   PORT: '8080'
-  CLI_PORT: '8081'
-  WS_MANAGER: ws-manager.rciots.com
+  CLI_PORT: '8080'
+  WS_MANAGER: socketmanager.rciots.com
