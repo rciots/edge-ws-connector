@@ -29,3 +29,6 @@ io.on('connection', (socket) => {
 ioclient.on("control", (control) => {
   controller.emit("control", control);
 });
+ioclient.on("user_on", (status) => {
+  controller.emit("user_on", status);
+});
