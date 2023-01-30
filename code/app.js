@@ -8,26 +8,31 @@ const ioclient = new socketcli.connect("http://" + wsmanager + ":" + cliport, {
   reconnectionDelay: 500
 });
 var controller = "";
+var camera = "";
+computervision = "";
 const io = new Server(port, { /* options */ });
 io.on('connection', (socket) => {
   console.log("component connected");
   socket.on("component", (component) => {
+    socket.component = component;
     if (component == "hw01") {
       controller = socket;
       console.log("connected hw01");
     } else if (component == "cam01") {
+      camera = socket;
       console.log("connected cam01");
+    } else if (component == "cv01") {
+      computervision = socket;
+      console.log("connected cv01");
     }
-  });
-  socket.on("hello", (data) => {
-      console.log(data);
   });
   socket.on("video", (data) => {
     ioclient.emit("video", data);
   });
 });
-ioclient.on("control", (control) => {
-  controller.emit("control", control);
+ioclient.on("control", (control, act) => {
+  console.log("control: " + control + "act: " + act);
+  controller.emit("control", control, act);
 });
 ioclient.on("user_on", (status) => {
   controller.emit("user_on", status);
